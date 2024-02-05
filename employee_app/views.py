@@ -26,6 +26,22 @@ class AllempView(APIView):
             })
         return Response(result_dict)
 
+class SearchEmp(APIView):
+    def get(self, request):
+        result_dict = []
+        data = int(request.GET.get("id"))
+        query =f"""select * from employee_app_employeedetailsmodel where id = {data};"""
+        db_result = execute_raw_sql_query(query)
+        for data in db_result:
+            result_dict.append({
+                    "name":data[0],
+                    "age":data[1],
+                    "experiance":data[1],
+                    "emp_id": data[3]
+                })
+        return Response(result_dict)
+        # return Response(db_result)
+        
 
 
     
